@@ -1,14 +1,31 @@
 package com.eazybank.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.eazybank.model.Accounts;
+import com.eazybank.model.Customer;
+import com.eazybank.repository.AccountsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AccountController {
 
-    @GetMapping("/myAccount")
-    public String getAccountDetails(String input) {
-        return "Here are the account details from the DB";
+    private final AccountsRepository accountsRepository;
+
+    @Autowired
+    public AccountController(AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
+    }
+
+    @PostMapping("/myAccount")
+    public Accounts getAccountDetails(@RequestBody Customer customer) {
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getId());
+        if (accounts != null ) {
+            return accounts;
+        }else {
+            return null;
+        }
     }
 
 }
