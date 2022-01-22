@@ -4,20 +4,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
     private Long id;
 
     private String name;
 
     private String email;
-
     @Column(name = "mobile_number")
+
     private String mobileNumber;
 
     @JsonIgnore
@@ -28,8 +29,9 @@ public class Customer {
     @Column(name = "create_dt")
     private Date createDt;
 
-    public Customer() {
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
+    private Set<Authority> authorities;
 
     public Long getId() {
         return id;
@@ -85,6 +87,14 @@ public class Customer {
 
     public void setCreateDt(Date createDt) {
         this.createDt = createDt;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
 }
