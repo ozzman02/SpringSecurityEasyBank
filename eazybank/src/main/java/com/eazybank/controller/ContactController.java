@@ -3,6 +3,8 @@ package com.eazybank.controller;
 import com.eazybank.model.Contact;
 import com.eazybank.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,8 @@ public class ContactController {
     }
 
     @PostMapping("/contact")
+    //@PreFilter("contact.contactName == 'Test'")
+    @PostFilter("contact.contactName == 'Test'")
     public Contact saveContactInquiryDetails(@RequestBody Contact contact) {
         contact.setContactId(getServiceReqNumber());
         contact.setCreateDt(new Date(System.currentTimeMillis()));

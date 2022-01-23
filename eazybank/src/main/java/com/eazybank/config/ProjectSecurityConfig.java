@@ -3,6 +3,7 @@ package com.eazybank.config;
 import com.eazybank.filter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity(debug = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true,  jsr250Enabled = true)
 public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -63,7 +65,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/myAccount").hasRole("USER")
                     .antMatchers("/myBalance").hasAnyRole("USER","ADMIN")
-                    .antMatchers("/myLoans").hasRole("ROOT")
+                    .antMatchers("/myLoans").authenticated()
                     .antMatchers("/myCards").hasAnyRole("USER","ADMIN")
                     .antMatchers("/user").authenticated()
                     .antMatchers("/notices").permitAll()
