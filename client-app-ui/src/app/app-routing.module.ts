@@ -16,20 +16,21 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'notices', component: NoticesComponent},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthKeyClockGuard],data: {
-    roles: ['USER','ADMIN']
-  }},
-  { path: 'myAccount', component: AccountComponent, canActivate: [AuthKeyClockGuard],data: {
+  /*{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthKeyClockGuard],data: {
+    roles: ['USER', 'ADMIN']
+  }},*/
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthKeyClockGuard] },
+  { path: 'myAccount', component: AccountComponent, canActivate: [AuthKeyClockGuard], data: {
     roles: ['USER']
   }},
-  { path: 'myBalance', component: BalanceComponent, canActivate: [AuthKeyClockGuard],data: {
+  { path: 'myBalance', component: BalanceComponent, canActivate: [AuthKeyClockGuard], data: {
     roles: ['ADMIN']
   }},
-  { path: 'myLoans', component: LoansComponent, canActivate: [AuthKeyClockGuard],data: {
-    roles: ['USER','ADMIN']
+  { path: 'myLoans', component: LoansComponent, canActivate: [AuthKeyClockGuard], data: {
+    roles: ['USER', 'ADMIN']
   }},
-  { path: 'myCards', component: CardsComponent, canActivate: [AuthKeyClockGuard],data: {
-    roles: ['USER','ADMIN']
+  { path: 'myCards', component: CardsComponent, canActivate: [AuthKeyClockGuard], data: {
+    roles: ['USER', 'ADMIN']
   }}
 ];
 
